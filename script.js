@@ -8,8 +8,16 @@ let gameboardModule = function() {
 //setting up display controller module
 
 let displayControlModule = (function(){
-    let testkk = () => {console.log("this works")};
-    return {testkk};
+   const clickBoxes = document.querySelectorAll(".cb");
+   
+   for(let i =0; i < 9; i++){
+    clickBoxes[i].value = i;
+    clickBoxes[i].addEventListener("click", gmBrd, false );  //sends the index number to be accessed by this
+    console.log(clickBoxes[i].value);
+
+   }
+   
+   
 
 } )();
 
@@ -22,11 +30,10 @@ let createPlayer =(playerName, playerNumber, chosenSign) => {
 
 }
 
-let renderGmBrd = function(){
+ function gmBrd(){
     let grdbx = document.querySelectorAll(".box");
-    grdbx[5].textContent = gameboardModule.gameboard;
-}();
+    grdbx[this.value].textContent = gameboardModule.gameboard; // gets the index number
+};
 
 let abhishek = createPlayer("abhishek", 1, "x");
 let M = createPlayer("m", 2, "o");
-let test = displayControlModule();
