@@ -1,0 +1,15 @@
+.gameboard{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    
+}
+.box{
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    margin: 5px;
+    text-align: center;
+    font-size: 10vh;
+    
+}
