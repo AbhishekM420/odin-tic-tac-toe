@@ -1,7 +1,19 @@
+//creating player 
+let createPlayer = (playerName, playerNumber, chosenSign) => {
+    let getPlayerName = () => {playerName ;
+        console.log("This is player number :" + playerNumber + "named" + playerName);
+    }
+    return {getPlayerName,playerName,playerNumber,chosenSign};
+
+};
+
+
 //set up the gameboard module
 let gameboardModule = function() {
     let gameboard = [];
+    playerOneTwo();
     return {gameboard};
+    
     
 }();
 
@@ -14,21 +26,14 @@ let displayControlModule = (function(){
     clickBoxes[i].addEventListener("click", gmBrd, false );  //sends the index number to be accessed by this
     //console.log(clickBoxes[i].value);
   
-
    }
    
+   return{clickBoxes};  //exporting butons so that they can be removed once the game is won
 
 
 } )();
 
-//creating player 
-let createPlayer =(playerName, playerNumber, chosenSign) => {
-    let getPlayerName = () => {playerName ;
-        console.log("This is player number :" + playerNumber + "named" + playerName);
-    }
-    return {getPlayerName,playerName,playerNumber,chosenSign};
 
-}
  let i = 0;
  function gmBrd(){
     
@@ -44,20 +49,61 @@ let createPlayer =(playerName, playerNumber, chosenSign) => {
     grdbx[this.value].textContent = gameboardModule.gameboard[this.value]; // gets the index number
    console.log(gameboardModule.gameboard) 
     i++;      // alternate between X and O
-    gamePlay();
+    gamePlay(); //calling game logic to check if the game has been won
 }
 
-let abhishek = createPlayer("abhishek", 1, "x");
-let M = createPlayer("m", 2, "o");
+
  
 function gamePlay(){   //adding game logic
+    
+    const result = document.getElementById("result");
+
     
     for(let j = 0; j < 9; j++){
       if(gameboardModule.gameboard[j] == "X")
       if (  (gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2]) ||(gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6]))
-      console.log(" X wins")  ;
-      else if(gameboardModule.gameboard[j] == "O")
+     {
+        result.textContent = PlayerOne.playerName + "  wins";
+        stopGame();
+     }
+      
+     if(gameboardModule.gameboard[j] == "O")
       if (  (gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2]) ||(gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6]))
-      console.log(" O wins")  ;
+     {
+        result.textContent = PlayerTwo.playerName + "   wins" ;
+        stopGame();
+  
+     }
+     else if(gameboardModule.gameboard.length == 9 && gameboardModule.gameboard.includes(undefined) != true){
+        result.textContent = "Tie" ;
+        stopGame();
+   
+     }
     }
+}
+                                     
+function stopGame(){                                     //Removing buttons once game is over
+   displayControlModule.clickBoxes.forEach(clickBox => {
+    clickBox.remove();
+   })
+}
+const reset = document.getElementById("reset");
+reset.addEventListener("click",reload =()=> {
+    location.reload();
+})
+var PlayerOne;
+var PlayerTwo;
+
+function playerOneTwo(){
+   let  pOneName = prompt("Enter Player One Name");
+   window.alert(`${pOneName} is Player One And Your Sign is X`);
+
+   let pTwoName = prompt("Enter Player Two Name");                      //creating player objects and assigning their signs and names
+   window.alert(`${pTwoName} is Player Two And Your Sign is O`);
+
+    PlayerOne = createPlayer(pOneName, 1, "X");
+   console.log(PlayerOne.chosenSign)
+    PlayerTwo = createPlayer(pTwoName, 2, "O");
+
+   return{PlayerOne,PlayerTwo};
 }
