@@ -39,10 +39,14 @@ let displayControlModule = (function(){
     
     let grdbx = document.querySelectorAll(".box");
 
-    if(i % 2 == 0)
-    gameboardModule.gameboard[this.value] = "X";
+    if(i % 2 == 0){
+      gameboardModule.gameboard[this.value] = "X";
+    window.alert(PlayerOne.playerName +"'s turn");
+    }
+    
     else{
      gameboardModule.gameboard[this.value] = "O" ;
+     window.alert(PlayerTwo.playerName +"'s turn");
     }
     
     
@@ -60,27 +64,67 @@ function gamePlay(){   //adding game logic
 
     
     for(let j = 0; j < 9; j++){
-      if(gameboardModule.gameboard[j] == "X")
-      if (  (gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2]) ||(gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6]))
+      if(gameboardModule.gameboard[j] == "X"){
+         if(j == 0 || j == 3 || j == 6)
+      {
+         if( gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2] ){
+            result.textContent = PlayerOne.playerName + "  wins";
+        stopGame();
+         }
+      }
+      
+     if(gameboardModule.gameboard[0] == "X" && gameboardModule.gameboard[0] == gameboardModule.gameboard[4] && gameboardModule.gameboard[4] == gameboardModule.gameboard[8] ){
+      
+         result.textContent = PlayerTwo.playerName + "   wins" ;
+        stopGame();
+      }
+     
+      if (gameboardModule.gameboard[2] == "X" && gameboardModule.gameboard[2] == gameboardModule.gameboard[4] && gameboardModule.gameboard[4] == gameboardModule.gameboard[6] ){
+         result.textContent = PlayerTwo.playerName + "   wins" ;
+        stopGame();
+      }
+     
+      if  (gameboardModule.gameboard[j] == "X" && gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6])
      {
         result.textContent = PlayerOne.playerName + "  wins";
         stopGame();
      }
+      }
+
       
-     if(gameboardModule.gameboard[j] == "O")
-      if (  (gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2]) ||(gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6]))
+      
+     if(gameboardModule.gameboard[j] == "O"){
+      if(j == 0 || j == 3 || j == 6)
+      {
+         if( gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2] ){
+            result.textContent = PlayerOne.playerName + "  wins";
+        stopGame();
+         }
+      }
+      
+     if(gameboardModule.gameboard[0] == "O" && gameboardModule.gameboard[0] == gameboardModule.gameboard[4] && gameboardModule.gameboard[4] == gameboardModule.gameboard[8] ){
+      
+         result.textContent = PlayerTwo.playerName + "   wins" ;
+        stopGame();
+      }
+     
+      if (gameboardModule.gameboard[2] == "O" && gameboardModule.gameboard[2] == gameboardModule.gameboard[4] && gameboardModule.gameboard[4] == gameboardModule.gameboard[6] ){
+         result.textContent = PlayerTwo.playerName + "   wins" ;
+        stopGame();
+      }
+     
+      if  (gameboardModule.gameboard[j] == "O" && gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6])
      {
-        result.textContent = PlayerTwo.playerName + "   wins" ;
+        result.textContent = PlayerOne.playerName + "  wins";
         stopGame();
-  
      }
-     else if(gameboardModule.gameboard.length == 9 && gameboardModule.gameboard.includes(undefined) != true){
-        result.textContent = "Tie" ;
-        stopGame();
-   
+     
+    
+      }
      }
+     
     }
-}
+
                                      
 function stopGame(){                                     //Removing buttons once game is over
    displayControlModule.clickBoxes.forEach(clickBox => {

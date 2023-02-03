@@ -13,3 +13,28 @@
     font-size: 10vh;
     
 }
+.gameboard button{
+   display: block;
+   height: 100%;      /*made buttons span the entire div*/
+   width: 100%;
+   }
+   body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
+   .res{
+    height: 100px;
+    font-size: xx-large;
+    margin: 20px;
+   }
+   #reset{
+    height: 35px;
+    border: 2px solid black;
+   }
+   .head{
+    font-size: xx-large;
+    height: 50px;
+    margin: 20px;
+}
