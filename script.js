@@ -22,7 +22,10 @@ let gameboardModule = function() {
 let displayControlModule = (function(){
    const clickBoxes =   document.querySelectorAll(".cb");
    
+   
    for(let i =0; i < 9; i++){
+      
+      
     clickBoxes[i].addEventListener("click", gmBrd, false );  //sends the index number to be accessed by this
     //console.log(clickBoxes[i].value);
   
@@ -36,17 +39,26 @@ let displayControlModule = (function(){
 
  let i = 0;
  function gmBrd(){
-    
-    let grdbx = document.querySelectorAll(".box");
+     let grdbx = document.querySelectorAll(".box");
+     const turn = document.querySelector(".turn");
 
-    if(i % 2 == 0){
+     if(i % 2 == 0 || i ==0){
+      turn.textContent = PlayerTwo.playerName +"'s turn";
+
+      }
+      if(i % 2 != 0){
+      turn.textContent = PlayerOne.playerName +"'s turn";
+          
+      }
+     
+      if(i % 2 == 0){
       gameboardModule.gameboard[this.value] = "X";
-    window.alert(PlayerOne.playerName +"'s turn");
+    
     }
     
     else{
-     gameboardModule.gameboard[this.value] = "O" ;
-     window.alert(PlayerTwo.playerName +"'s turn");
+      gameboardModule.gameboard[this.value] = "O" ;
+     
     }
     
     
@@ -80,7 +92,7 @@ function gamePlay(){   //adding game logic
       }
      
       if (gameboardModule.gameboard[2] == "X" && gameboardModule.gameboard[2] == gameboardModule.gameboard[4] && gameboardModule.gameboard[4] == gameboardModule.gameboard[6] ){
-         result.textContent = PlayerTwo.playerName + "   wins" ;
+         result.textContent = PlayerOne.playerName + "   wins" ;
         stopGame();
       }
      
@@ -97,7 +109,7 @@ function gamePlay(){   //adding game logic
       if(j == 0 || j == 3 || j == 6)
       {
          if( gameboardModule.gameboard[j] == gameboardModule.gameboard[j+1] && gameboardModule.gameboard[j+1]==gameboardModule.gameboard[j+2] ){
-            result.textContent = PlayerOne.playerName + "  wins";
+            result.textContent = PlayerTwo.playerName + "  wins";
         stopGame();
          }
       }
@@ -115,7 +127,7 @@ function gamePlay(){   //adding game logic
      
       if  (gameboardModule.gameboard[j] == "O" && gameboardModule.gameboard[j] == gameboardModule.gameboard[j+3] && gameboardModule.gameboard[j+3] == gameboardModule.gameboard[j+6])
      {
-        result.textContent = PlayerOne.playerName + "  wins";
+        result.textContent = PlayerTwo.playerName + "  wins";
         stopGame();
      }
      
